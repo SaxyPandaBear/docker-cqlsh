@@ -4,17 +4,20 @@
 export CQLVERSION=${CQLVERSION:-"3.4.4"}
 export CQLSH_HOST=${CQLSH_HOST:-"cassandra"}
 export CQLSH_PORT=${CQLSH_PORT:-"9042"}
+export CQLSH_MAX_RETRIES=${CQLSH_MAX_RETRIES:-5}
 
 cqlsh=( cqlsh --cqlversion ${CQLVERSION} )
 
 # test connection to cassandra
 echo "Checking connection to cassandra..."
-for i in {1..5}; do
+i=1
+while [ $i -le $CQLSH_MAX_RETRIES ]; do
   if "${cqlsh[@]}" -e "show host;" 2> /dev/null; then
     break
   fi
   echo "Can't establish connection, will retry again in $i sconds"
   sleep $i
+  i=$(($i+1))
 done
 
 if [ "$i" = 5 ]; then

@@ -32,6 +32,7 @@ $ docker run -it nuvo/docker-cqlsh bash
 * `CQLVERSION` - The native transport version to use (default: `3.4.4`)
 * `CQLSH_HOST` - Cassandra host (default: `cassandra`)
 * `CQLSH_PORT` - Cassandra port (default: `9042`)
+* `CQLSH_MAX_RETRIES` - The maximum number of retries that will execute before failing (default: `5`)
 
 #### Examples
 
